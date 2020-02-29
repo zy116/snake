@@ -33,7 +33,7 @@
     }
 
     function remove() {
-    	for(var i = elements.length-1;i>=0;i__){
+    	for(var i = elements.length-1;i>=0;i--){
     		elements[i].parentNode.removeChild(elements[i]);
     		elements.splice(i);
 		}

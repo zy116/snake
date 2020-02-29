@@ -4,3 +4,7 @@
 	background-color: pink;
 	position: relative;
 }
+
+#start{
+	float: right;
+}

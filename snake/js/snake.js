@@ -6,7 +6,7 @@
 
     //蛇对象的构造方法
     function Snake() {
-        this.width =  20;
+        this.width = 20;
         this.height = 20;
         this.direction = 'right';
         this.body = [
@@ -40,10 +40,10 @@
     }
 
     //控制蛇移动的方法
-    Snake.prototype.move = function(){
-        for (var i = this.body.length-1;i>0;i--){
-            this.body[i].x = this.body[i-1].x;
-            this.body[i].y = this.body[i-1].y;
+    Snake.prototype.move = function (map, food) {
+        for (var i = this.body.length - 1; i > 0; i--) {
+            this.body[i].x = this.body[i - 1].x;
+            this.body[i].y = this.body[i - 1].y;
         }
         //判断蛇的移动方向
         var head = this.body[0];
@@ -54,24 +54,41 @@
             case 'left':
                 head.x--;
                 break;
-            case 'top':
+            case 'up':
+                head.y--;
+                break;
+            case 'down':
                 head.y++;
                 break;
-            case 'bottom':
-                head--;
-                break;
         }
+
+        var headX = head.x * this.width;
+        var headY = head.y * this.height;
+
+        if (headX == food.x && headY == food.y) {
+            var last = this.body[this.body.length - 1];
+            this.body.push({
+                x: last.x,
+                y: last.y,
+                color: last.color
+            });
+
+            food.render(map);
+        }
+
+
     }
 
     //删除方法
-    function remove(){
+    function remove() {
         var len = elements.length;
-        for (var i = len-1;i>=0;i--){
+        for (var i = len - 1; i >= 0; i--) {
             //从map中删除掉这一节蛇的div
             elements[i].parentNode.removeChild(elements[i]);
-        //    从数组中将这一节删除
-            elements.splice(i,1);
+            //    从数组中将这一节删除
+            elements.splice(i, 1);
         }
     }
+
     window.Snake = Snake;
 })()
